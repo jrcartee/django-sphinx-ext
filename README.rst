@@ -86,11 +86,11 @@ viewdoc.py
 
 Use Django's "reverse" function to print the url for a given urlpattern name.
 
-Usage::
+Usage (Simple GET endpoint with no params)::
 
 	.. endpoint:: 'url-name'
 
-	If the url requires some parameters to be found (ex. a pk):
+Usage (URL requires some parameters to be found (ex. a pk))::
 
 	.. endpoint:: 'url-with-params'
 	   :extra: {'pk': 1}
