@@ -29,6 +29,7 @@ pyexec.py
 Execute arbitrary python code in a ReST document.
 
 Usage::
+
 	.. exec:: 
 	   print "your python code here!"
 	   print "even on multiple lines"
@@ -49,6 +50,7 @@ formdoc.py
 Auto-generate documentation for a Django Form Class.
 
 Usage::
+
 	.. form:: myapp MyFormClass
 
 This attempts to import MyFormClass from myapp.forms.
@@ -73,6 +75,7 @@ viewdoc.py
 Use Django's "reverse" function to print the url for a given urlpattern name.
 
 Usage::
+
 	.. endpoint:: 'url-name'
 
 	If the url requires some parameters to be found (ex. a pk):
