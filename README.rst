@@ -6,6 +6,14 @@ Custom Directives for use in ReST files with Sphinx, to automate creation of som
 
 
 ++++++++++++++++++
+Dependencies
+++++++++++++++++++
+- Python
+- Django
+- Sphinx
+- Tabulate
+
+++++++++++++++++++
 Setup
 ++++++++++++++++++
 
@@ -67,6 +75,10 @@ Directly after, it checks your firm class for an err_set dict
 containing custom error messages used in the forms clean method.
 these will be printed in a bulleted list.
 
+Example Output:
+
+	.. image:: screen/form_sample.jpg
+
 
 ++++++++++++++++++
 viewdoc.py
@@ -84,3 +96,7 @@ Usage::
 	   :extra: {'pk': 1}
 
 The URL will be inserted into the document inside a block-quote.
+
+Example Output:
+
+	.. image:: screen/endpoint_sample.jpg
