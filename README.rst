@@ -95,7 +95,14 @@ Usage (URL requires some parameters to be found (ex. a pk))::
 	.. endpoint:: 'url-with-params'
 	   :extra: {'pk': 1}
 
+Usage (to include the HTTP method)::
+
+	.. endpoint:: 'url-with-params'
+	   :extra: {'pk': 1}
+	   :method: POST
+
 The URL will be inserted into the document inside a block-quote.
+If 'method' is provided,  it will be bold and appear above the block-quote.
 
 Example Output:
 

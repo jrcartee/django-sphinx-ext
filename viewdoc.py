@@ -16,7 +16,7 @@ class ViewDirective(Directive):
     required_arguments = 1
 
 
-    option_spec = dict(extra=unchanged)
+    option_spec = dict(extra=unchanged, method=unchanged)
 
     def run(self):
         oldStdout, sys.stdout = sys.stdout, StringIO()
@@ -25,12 +25,16 @@ class ViewDirective(Directive):
         source = self.state_machine.input_lines.source(self.lineno - self.state_machine.input_offset - 1)
 
         extra = self.options.get('extra', '{}')
+        method = self.options.get('method')
         code = [
             "from django.core.urlresolvers import reverse",
             "print '::'",
             "print",
             "print reverse(%s, kwargs=%s)" % (self.arguments[0], extra)
         ]
+        if method:
+            method_line = "print '**%s**::'" % method
+            code[1] = method_line
         try:
             exec('\n'.join(code))
             text = sys.stdout.getvalue()
