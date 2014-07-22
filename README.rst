@@ -110,6 +110,6 @@ Example Output:
 
 And with a method + extra included:
 
-	.. image:: screen/endpoint_extra_sample.jpg
+	.. image:: screen/endpoint_extras_sample.jpg
 
 
