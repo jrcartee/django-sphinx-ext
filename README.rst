@@ -107,3 +107,9 @@ If 'method' is provided,  it will be bold and appear above the block-quote.
 Example Output:
 
 	.. image:: screen/endpoint_sample.jpg
+
+And with a method + extra included:
+
+	.. image:: screen/endpoint_extra_sample.jpg
+
+
