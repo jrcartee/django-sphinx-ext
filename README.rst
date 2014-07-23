@@ -42,8 +42,8 @@ Usage::
 	   print "your python code here!"
 	   print "even on multiple lines"
 
-This inserts any output that goes to stdout into the ReST document
-prior to the interpretation by Sphinx. 
+	This inserts any output that goes to stdout into the ReST document
+	prior to the interpretation by Sphinx. 
 
 Code for pyexec module was found from this stackoverflow answer:
 	http://stackoverflow.com/a/18143318
@@ -61,7 +61,7 @@ Usage::
 
 	.. form:: myapp MyFormClass
 
-This attempts to import MyFormClass from myapp.forms.
+	This attempts to import MyFormClass from myapp.forms.
 
 
 Usage (with fields to be excluded)::
@@ -69,15 +69,14 @@ Usage (with fields to be excluded)::
 	.. form:: myapp MyFormClass
 	   :exclude: ['created']
 
-This can hide any default fields that will only clutter documentation.
+	This can hide any default fields that will only clutter documentation.
 
 
-If successful, a table is printed containing 
-metadata for each form field.
+If successful, a table is printed containing metadata for each form field.
 
-Directly after, it checks your firm class for an err_set dict 
+Directly after, it checks your firm class for an 'err_set' dict,
 containing custom error messages used in the forms clean method.
-these will be printed in a bulleted list.
+If found, these will be printed in a bulleted list.
 
 Example Output:
 
@@ -90,7 +89,7 @@ viewdoc.py
 
 Use Django's "reverse" function to print the url for a given urlpattern name.
 
-Usage (Simple GET endpoint with no params)::
+Usage::
 
 	.. endpoint:: 'url-name'
 
@@ -99,7 +98,7 @@ Usage (URL requires some parameters to be found (ex. a pk))::
 	.. endpoint:: 'url-with-params'
 	   :extra: {'pk': 1}
 
-Usage (to include the HTTP method)::
+Usage (Including the HTTP method)::
 
 	.. endpoint:: 'url-with-params'
 	   :extra: {'pk': 1}
