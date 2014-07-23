@@ -73,12 +73,7 @@ This can hide any default fields that will only clutter documentation.
 
 
 If successful, a table is printed containing 
-metadata for each form field including:
-	- bounds
-		- min_length/max_length (for str)
-		- min_value/max_value (for int)
-	- required
-	- help_text
+metadata for each form field.
 
 Directly after, it checks your firm class for an err_set dict 
 containing custom error messages used in the forms clean method.
