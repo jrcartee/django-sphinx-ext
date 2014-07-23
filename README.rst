@@ -93,10 +93,15 @@ Usage::
 
 	.. endpoint:: 'url-name'
 
-Usage (URL requires some parameters to be found (ex. a pk))::
+- The URL will be inserted into the document inside a block-quote.
+
+Usage (URL requires some parameters)::
 
 	.. endpoint:: 'url-with-params'
 	   :extra: {'pk': 1}
+
+- Django's 'reverse' may require extra kwargs to find your url. 
+ This option covers that case
 
 Usage (Including the HTTP method)::
 
@@ -104,8 +109,7 @@ Usage (Including the HTTP method)::
 	   :extra: {'pk': 1}
 	   :method: POST
 
-The URL will be inserted into the document inside a block-quote.
-If 'method' is provided,  it will be bold and appear above the block-quote.
+- Provided method will be bolded and appear above the block-quote.
 
 Example Output:
 
