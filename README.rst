@@ -42,8 +42,8 @@ Usage::
 	   print "your python code here!"
 	   print "even on multiple lines"
 
-	This inserts any output that goes to stdout into the ReST document
-	prior to the interpretation by Sphinx. 
+- This inserts any output that goes to stdout into the ReST document
+prior to the interpretation by Sphinx. 
 
 Code for pyexec module was found from this stackoverflow answer:
 	http://stackoverflow.com/a/18143318
@@ -61,7 +61,7 @@ Usage::
 
 	.. form:: myapp MyFormClass
 
-	This attempts to import MyFormClass from myapp.forms.
+- This attempts to import MyFormClass from myapp.forms.
 
 
 Usage (with fields to be excluded)::
@@ -69,7 +69,7 @@ Usage (with fields to be excluded)::
 	.. form:: myapp MyFormClass
 	   :exclude: ['created']
 
-	This can hide any default fields that will only clutter documentation.
+- This can hide any default fields that will only clutter documentation.
 
 
 If successful, a table is printed containing metadata for each form field.
