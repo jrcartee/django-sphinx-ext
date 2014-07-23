@@ -66,7 +66,7 @@ This attempts to import MyFormClass from myapp.forms.
 
 Usage (with fields to be excluded)::
 
-    .. form:: myapp MyFormClass
+	.. form:: myapp MyFormClass
 	   :exclude: ['created']
 
 This can hide any default fields that will only clutter documentation.
