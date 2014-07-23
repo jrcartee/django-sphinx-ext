@@ -100,8 +100,7 @@ Usage (URL requires some parameters)::
 	.. endpoint:: 'url-with-params'
 	   :extra: {'pk': 1}
 
-- Django's 'reverse' may require extra kwargs to find your url. 
- This option covers that case
+- Django's 'reverse' may require extra kwargs to find your url. This option covers that case
 
 Usage (Including the HTTP method)::
 
