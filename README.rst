@@ -63,12 +63,21 @@ Usage::
 
 This attempts to import MyFormClass from myapp.forms.
 
+
+Usage (with fields to be excluded)::
+
+    .. form:: myapp MyFormClass
+	   :exclude: ['created']
+
+This can hide any default fields that will only clutter documentation.
+
+
 If successful, a table is printed containing 
 metadata for each form field including:
+	- bounds
+		- min_length/max_length (for str)
+		- min_value/max_value (for int)
 	- required
-	- max_length
-	- min_value
-	- max_value
 	- help_text
 
 Directly after, it checks your firm class for an err_set dict 
