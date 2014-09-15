@@ -1,4 +1,5 @@
 import sys
+import traceback
 from os.path import basename
 
 try:
@@ -17,41 +18,62 @@ from django.forms.models import ModelChoiceField, ModelMultipleChoiceField
 class FormDirective(Directive):
     has_content = False
     required_arguments = 2
-    option_spec = dict(exclude=unchanged, error_dict=unchanged)
+    option_spec = dict(
+        exclude=unchanged,
+        error_dict=unchanged,
+        prep_kwargs=unchanged,
+        kwargs=unchanged
+    )
 
     def run(self):
         oldStdout, sys.stdout = sys.stdout, StringIO()
 
-        tab_width = self.options.get(
-            'tab-width', self.state.document.settings.tab_width)
+        # get the path to this rST source file
         source = self.state_machine.input_lines.source(
             self.lineno - self.state_machine.input_offset - 1)
+        # Number of spaces to indent on output
+        tab_width = self.options.get(
+            'tab-width', self.state.document.settings.tab_width)
+        # fields excluded from the table
         exclude = self.options.get('exclude', [])
-        err_dict = self.options.get('error_dict', '"err_set"')
+        # name of dict storing extra errors for the form
+        err_dict = self.options.get('error_dict', 'err_set')
+        # stuff required to initialize an instance of the form
+        prep_code = self.options.get('prep_kwargs', "")
+        form_kwargs = self.options.get('kwargs', {})
+
         code = [
             "from %s import %s as form" % (
                 self.arguments[0], self.arguments[1],),
+            "%s" % prep_code,
+            "form = form(**%s)" % form_kwargs,
             "print ",
-            "form_documenter(form, %s)" % exclude,
+            "form_documenter(form, %s)" % (exclude),
             "print ",
-            "form_err_doc(form, %s)" % err_dict
+            "form_err_doc(form, '%s')" % err_dict
         ]
         try:
             exec('\n'.join(code))
-            text = sys.stdout.getvalue()
+            # convert the multi-line string into a
+            #   a list of single-line strings
             lines = statemachine.string2lines(
-                text, tab_width, convert_whitespace=True)
+                sys.stdout.getvalue(),
+                tab_width, convert_whitespace=True)
+            # insert the list of strings at the source
+            #   of the original directive call
             self.state_machine.insert_input(lines, source)
             return []
         except Exception:
+            error_src = (
+                "Unable to execute python code at %s:%d:" % (
+                    basename(source), self.lineno)
+            )
+            trace = '\n'.join(traceback.format_exception(*sys.exc_info()))
             return [
                 nodes.error(
                     None,
-                    nodes.paragraph(
-                        text="Unable to execute python code at %s:%d:" % (
-                            basename(source), self.lineno)
-                    ),
-                    nodes.paragraph(text=str(sys.exc_info()[1]))
+                    nodes.paragraph(text=error_src),
+                    nodes.literal_block(text=trace)
                 )
             ]
         finally:
@@ -65,9 +87,9 @@ def setup(app):
 def form_documenter(form, exclude):
     from tabulate import tabulate
     rows = []
-    for field_id in form.base_fields.iterkeys():
+    for field_id in form.fields.iterkeys():
         if field_id not in exclude:
-            field = form.base_fields[field_id]
+            field = form.fields[field_id]
             field = field_documenter(field)
 
             rows.append([

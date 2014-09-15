@@ -2,16 +2,21 @@
 django-sphinx-ext
 =================
 
-Custom Directives for use in ReST files with Sphinx, to automate creation of some documentation
+Custom Directives for use in ReST files with Sphinx, to automate creation of some documentation.
+Contains the following directives:
+	- [pyexec](docs/pyexec.rst) -- executes arbitrary python code, and redirects stdout to your generated doc
+	- [formdoc](docs/formdoc.rst) -- builds a table describing all your django form's fields (works for django-rest-framework serializers too!)
+	- [viewdoc](docs/viewdoc.rst) -- uses django's reverse to print the url for each view, using its name given in your urls.py files
 
 
 ++++++++++++++++++
 Dependencies
 ++++++++++++++++++
-- Python
-- Django
+- Python 2.7
+- Django 1.6
 - Sphinx
 - Tabulate
+
 
 ++++++++++++++++++
 Setup
@@ -22,100 +27,8 @@ In your Sphinx project's conf.py::
 	sys.path.insert(0, os.path.abspath('/path/to/your/django_project/'))
 	sys.path.insert(0, os.path.abspath('/path/to/this/cloned/repo/'))
 
-
 	extensions = [
 	    'pyexec',
 	    'viewdoc',
 	    'formdoc'
 	]
-
-
-++++++++++++++++++
-pyexec.py
-++++++++++++++++++
-
-Execute arbitrary python code in a ReST document.
-
-Usage::
-
-	.. exec:: 
-	   print "your python code here!"
-	   print "even on multiple lines"
-
-- This inserts any output that goes to stdout into the ReST document
-prior to the interpretation by Sphinx. 
-
-Code for pyexec module was found from this stackoverflow answer:
-	http://stackoverflow.com/a/18143318
-Credit goes to StackOverflow user: 
-	http://stackoverflow.com/users/839411/alex-forencich
-
-
-++++++++++++++++++
-formdoc.py
-++++++++++++++++++
-
-Auto-generate documentation for a Django Form Class.
-
-Usage::
-
-	.. form:: myapp MyFormClass
-
-- This attempts to import MyFormClass from myapp.forms.
-
-
-Usage (with fields to be excluded)::
-
-	.. form:: myapp MyFormClass
-	   :exclude: ['created']
-
-- This can hide any default fields that will only clutter documentation.
-
-
-If successful, a table is printed containing metadata for each form field.
-
-Directly after, it checks your firm class for an 'err_set' dict,
-containing custom error messages used in the forms clean method.
-If found, these will be printed in a bulleted list.
-
-Example Output:
-
-	.. image:: screen/form_sample.jpg
-
-
-++++++++++++++++++
-viewdoc.py
-++++++++++++++++++
-
-Use Django's "reverse" function to print the url for a given urlpattern name.
-
-Usage::
-
-	.. endpoint:: 'url-name'
-
-- The URL will be inserted into the document inside a block-quote.
-
-Usage (URL requires some parameters)::
-
-	.. endpoint:: 'url-with-params'
-	   :extra: {'pk': 1}
-
-- Django's 'reverse' may require extra kwargs to find your url. This option covers that case
-
-Usage (Including the HTTP method)::
-
-	.. endpoint:: 'url-with-params'
-	   :extra: {'pk': 1}
-	   :method: POST
-
-- Provided method will be bolded and appear above the block-quote.
-
-Example Output:
-
-	.. image:: screen/endpoint_sample.jpg
-
-And with a method + extra included:
-
-	.. image:: screen/endpoint_extras_sample.jpg
-
-

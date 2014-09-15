@@ -1,4 +1,5 @@
 import sys
+import traceback
 from os.path import basename
 
 try:
@@ -45,13 +46,16 @@ class ViewDirective(Directive):
             self.state_machine.insert_input(lines, source)
             return []
         except Exception:
+            error_src = (
+                "Unable to execute python code at %s:%d:" % (
+                    basename(source), self.lineno)
+            )
+            trace = '\n'.join(traceback.format_exception(*sys.exc_info()))
             return [
                 nodes.error(
                     None,
-                    nodes.paragraph(
-                        text="Unable to execute python code at %s:%d:" % (
-                            basename(source), self.lineno)),
-                    nodes.paragraph(text=str(sys.exc_info()[1]))
+                    nodes.paragraph(text=error_src),
+                    nodes.literal_block(text=trace)
                 )
             ]
         finally:
