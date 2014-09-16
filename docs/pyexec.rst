@@ -6,9 +6,10 @@ Executes arbitrary python code and redirects stdout to your documentation.
 
 Usage::
 
-    .. exec::
+    .. pyexec::
        print "your python code here!"
        print "even on multiple lines"
+       print "%d" (1 + 1)
 
 This inserts any output that goes to stdout into the ReST document
 prior to the interpretation by Sphinx. This means the output may include ReST formatting,
